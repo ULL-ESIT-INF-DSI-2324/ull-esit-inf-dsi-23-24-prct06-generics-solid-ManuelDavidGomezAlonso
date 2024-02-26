@@ -11,3 +11,4 @@ package.json
 tsconfig.json
 typedoc.json
 .nyc_output
+.coveralls.yml
