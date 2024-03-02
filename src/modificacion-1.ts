@@ -1,49 +1,99 @@
-
+/**
+ * @brief Interfaz generica que representa un objeto aritmético.
+ */
 interface Arithmeticable<T> {
-    add(operator:T):number[];
-    substract(operator:T):number[];
-    multiply(operator:T):number[];
-    divide(operator:T):number[];
+    add(operator:T):T;
+    substract(operator:T):T;
+    multiply(operator:T):T;
+    divide(operator:T):T;
 }
 /**
- * Clase que gestiona un conjunto de Aritméticos, mediante un vector 
- * de tipo genérico.
+ * @brief Clase que gestiona un conjunto de Aritméticos, mediante un vector de tipo genérico.
  */
 export class ArithmeticableCollection<T extends Arithmeticable<T>>  {
+  /**
+   * @brief Constructor de la clase ArithmeticableCollection.
+   * @param collect Un vector generico de tipo T que almacenará los objetos aritméticos.
+   */
     constructor(public collect: T[]){
     }
+
+    /**
+     * @brief Añade un elemento aritmético al conjunto.
+     * @param newElement Elemento aritmético que se añadirá al conjunto.
+     */
     addArithmeticable(newElement:T) {
         this.collect.push(newElement);
     }
+
+    /**
+     * @brief Obtiene un elemento aritmético del conjunto.
+     * @param index Indice del elemento aritmético que se quiere obtener.
+     */
     getArithmeticable(index: number){
         this.collect[index];
-    }
-    getNuberOfArithmeticable(){
-        this.collect.length;
     }
 }
 
 /**
- * 
+ * @brief Clase que implementa números complejos y sus respectivas operaciones.
  */
  export class Complex implements Arithmeticable<Complex> {
+  /**
+   * @breif Constructor de la clase Complex.
+   * @param real Parte real del complejo.
+   * @param imaginario Parte imaginaria del complejo.
+   */
     constructor(private real:number, private imaginario:number){
     }
+
+    /**
+     * @brief Suma de números complejos.
+     * @param complejo Complejo a sumar con el actual. 
+     * @returns Resultado numérico de la suma.
+     */
     add(complejo:Complex) {
-        return [this.real + complejo.getReal(), complejo.getImagin() - this.imaginario];
+        return new Complex(this.real + complejo.getReal(), complejo.getImagin() - this.imaginario);
     }
+
+    /**
+     * @brief Resta de números complejos.
+     * @param complejo Complejo a restar con el actual. 
+     * @returns Resultado numérico de la resta.
+     */
     substract(complejo:Complex){
-        return[this.real - complejo.getReal(), complejo.getImagin() + this.imaginario];
+        return new Complex(this.real - complejo.getReal(), complejo.getImagin() + this.imaginario);
     }
+
+    /**
+     * @brief Multiplicación de números complejos.
+     * @param complejo Complejo en el multiplicando de la operación. 
+     * @returns Resultado numérico de la multiplicación.
+     */
     multiply(complejo:Complex) {
-      return[(this.real*complejo.getReal()) - (this.imaginario*complejo.getImagin()), (this.real*complejo.getImagin()) + (this.imaginario*complejo.getReal())]
+      return new Complex(this.real*complejo.getReal() - this.imaginario*complejo.getImagin(), this.real*complejo.getImagin() + this.imaginario*complejo.getReal());
     }
+
+    /**
+     * @brief División de números complejos.
+     * @param complejo Complejo en el dividendo. 
+     * @returns Resultado numérico de la División.
+     */
     divide(complejo:Complex) {
-      return [(this.real*complejo.getReal()) - (this.imaginario*complejo.getImagin()), (this.real*complejo.getImagin()) + (this.imaginario*complejo.getReal())]
+      return new Complex(this.real*complejo.getReal() - this.imaginario*complejo.getImagin(), this.real*complejo.getImagin() + this.imaginario*complejo.getReal());
     }
+
+    /**
+     * @brief Obtiene la parte imaginaria del número complejo.
+     * @returns Parte imaginaria del número complejo.
+     */
     getImagin():number{
         return this.imaginario;
     }
+    /**
+     * @brief Obtiene la parte real del número complejo.
+     * @returns Parte real del número complejo.
+     */
     getReal():number{
         return this.real;
     }
@@ -61,9 +111,7 @@ export class Rational implements Arithmeticable<Rational> {
      */
     add(racional:Rational) {
         const newNum:number = this.num * racional.getDen() + racional.getNum() * this.den;
-
-        const tRAtional = [newNum,this.den * racional.getDen()];
-        return tRAtional;
+        return new Rational(newNum,this.den * racional.getDen());
       }
       
     /**
@@ -73,7 +121,7 @@ export class Rational implements Arithmeticable<Rational> {
      */
       substract(racional:Rational) {
         const newNum: number = this.num * racional.getDen() - racional.getNum() * this.den;
-        return [newNum, this.den * racional.getDen()];
+        return new Rational(newNum, this.den * racional.getDen());
       }
       
     /**
@@ -82,7 +130,7 @@ export class Rational implements Arithmeticable<Rational> {
      * @returns Resultado numérico de la multiplicación.
      */
         multiply(racional:Rational){
-            return [this.num * racional.getNum(), this.den * racional.getDen()];
+            return new Rational(this.num * racional.getNum(), this.den * racional.getDen());
         }
       
     /**
@@ -92,7 +140,7 @@ export class Rational implements Arithmeticable<Rational> {
      */
 
       divide(racional:Rational) {
-        return [this.num * racional.getDen(), racional.getNum() * this.den];
+        return new Rational(this.num * racional.getDen(), racional.getNum() * this.den);
       }
     /**
      * @brief Suma de números racionales.
