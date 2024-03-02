@@ -1,3 +1,16 @@
+/**
+ * @fileoverview Archivo que implementará una mudanza, en la que podremos meter en cajas diferentes tipos de enseres.
+ * Universidad de La Laguna.
+ * Desarrollo de Sistemas Informáticos.
+ * Ejercicio 1: Mudanza.
+ * Alu0101347301@ull.edu.es
+ * @author Manuel David Gómez Alonso
+ * @license MIT
+ */
+
+/**
+ * @brief Interfaz que representa un enser, con las funciones que debe de tener minimamente.
+ */
 interface Enser{
   tipoEnser(): string;
   Peso(): number;
