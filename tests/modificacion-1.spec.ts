@@ -27,6 +27,6 @@ describe('Pruebas Comprobando tamaño', () => {
   const complex2 = new Complex(-2,3);
   const collection = new ArithmeticableCollection([rational1,complex2]);
   it('Comprobando tamaño = 2', () =>{
-    expect(collection.getNuberOfArithmeticable()).to.equal(2);
+    expect(collection.collect.length).to.equal(2);
   });
 });
